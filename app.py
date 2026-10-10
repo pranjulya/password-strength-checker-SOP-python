@@ -10,7 +10,7 @@ def check_password_strength(password):
     uppercase_criteria = re.search(r'[A-Z]', password) is not None
     lowercase_criteria = re.search(r'[a-z]', password) is not None
     number_criteria = re.search(r'[0-9]', password) is not None
-    special_char_criteria = re.search(r'[!@#$%^&*()]', password) is not None
+    special_char_criteria = re.search(r'[^A-Za-z0-9\s]', password) is not None
 
     criteria_met = sum([
         length_criteria,
@@ -42,7 +42,7 @@ def check_password_strength(password):
     if not number_criteria:
         suggestions.append("Password should include at least one number.")
     if not special_char_criteria:
-        suggestions.append("Password should include at least one special character (e.g., !@#$%^&*()).")
+        suggestions.append("Password should include at least one special character (e.g., !@#$%^&*-_?).")
 
     return strength, suggestions
 

@@ -14,7 +14,7 @@ Enter a password in the form, submit it, and the page shows a strength rating pl
 | Uppercase | at least one letter `A-Z` |
 | Lowercase | at least one letter `a-z` |
 | Number | at least one digit `0-9` |
-| Special character | at least one of `!@#$%^&*()` |
+| Special character | at least one symbol that is not a letter, digit or space (for example `!`, `@`, `-`, `_`, `?`) |
 
 The rating depends on how many criteria are met:
 
@@ -28,7 +28,7 @@ The rating depends on how many criteria are met:
 
 For every criterion that is not met, the app adds a suggestion (for example, "Password should include at least one number.").
 
-Only the characters `!@#$%^&*()` count as special characters; other symbols such as `-`, `_` or `?` do not.
+Any symbol that is not a letter, digit or whitespace counts as a special character.
 
 ## Requirements
 
@@ -42,7 +42,7 @@ git clone https://github.com/pranjulya/password-strength-checker-SOP-python.git
 cd password-strength-checker-SOP-python
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install flask
+pip install -r requirements.txt
 ```
 
 ## Run
@@ -55,11 +55,20 @@ Then open http://127.0.0.1:5002 in your browser.
 
 The app starts Flask's built-in development server with `debug=True`, so it is meant for local use only.
 
+## Tests
+
+```bash
+pip install pytest
+pytest
+```
+
 ## Project structure
 
 ```
 .
 ├── app.py               # Flask app: strength-checking logic and the "/" route (GET shows the form, POST shows the result)
+├── requirements.txt     # Runtime dependency (Flask)
+├── test_app.py          # pytest checks for the rating rules and the POST route
 └── templates/
     └── index.html       # Password form and result/suggestions display
 ```
